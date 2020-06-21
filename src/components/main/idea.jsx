@@ -9,26 +9,28 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { useSelector } from "react-redux";
 import { Box } from "@material-ui/core";
 import moment from "moment";
-
-export default ({ text, img, time }) => {
-  console.log("here");
+import IdeaMenu from "./ideaMenu";
+export default ({ img, idea }) => {
   const name = useSelector((state) => state.user).displayName;
   return (
-    <Box mt={4}>
+    <Box mt={4} width="100%">
       <Card>
         <CardHeader
           avatar={<Avatar className="menuAvatar" alt="" src={img} />}
           action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
+            <IdeaMenu idea={idea}>
+              <IconButton aria-label="settings">
+                {" "}
+                <MoreVertIcon />
+              </IconButton>
+            </IdeaMenu>
           }
           title={name}
-          subheader={moment(time).fromNow()}
+          subheader={moment(idea.time).fromNow()}
         />
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="div">
-            {text}
+            {idea.text}
           </Typography>
         </CardContent>
       </Card>

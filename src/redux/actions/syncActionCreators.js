@@ -1,5 +1,12 @@
-import { SIGN_IN, SIGN_OUT, UPDATE_USER, ADD_IDEA } from "./actions";
-import { v4 } from "uuid";
+import {
+  SIGN_IN,
+  SIGN_OUT,
+  UPDATE_USER,
+  ADD_IDEA,
+  EDIT_IDEA,
+  REMOVE_IDEA,
+  SET_IDEAS,
+} from "./actions";
 
 export const signIn = (user) => {
   localStorage.setItem("user", JSON.stringify(user));
@@ -25,13 +32,28 @@ export const updateUser = (user) => {
   };
 };
 
-export const addIdea = (text) => {
+export const addIdea = (idea) => {
   return {
     type: ADD_IDEA,
-    idea: {
-      time: Date.now(),
-      id: v4(),
-      text,
-    },
+    idea,
+  };
+};
+export const editIdea = (idea) => {
+  return {
+    type: EDIT_IDEA,
+    idea,
+  };
+};
+export const removeIdea = (idea) => {
+  return {
+    type: REMOVE_IDEA,
+    idea,
+  };
+};
+
+export const setIdeas = (ideas) => {
+  return {
+    type: SET_IDEAS,
+    ideas,
   };
 };

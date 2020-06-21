@@ -3,3 +3,7 @@ export const SIGN_OUT = "SIGN_OUT";
 export const UPDATE_USER = "UPDATE_USER";
 
 export const ADD_IDEA = "ADD_IDEA";
+export const EDIT_IDEA = "EDIT_IDEA";
+export const REMOVE_IDEA = "REMOVE_IDEA";
+
+export const SET_IDEAS = "SET_IDEAS";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
@@ -8,9 +8,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { addIdeaOnServer } from "../../redux/actions/asyncActionCreators";
+import { editIdeaOnServer } from "../../redux/actions/asyncActionCreators";
 
-export default function FormDialog({ children }) {
+export default function FormDialog({ children, idea }) {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
@@ -20,12 +20,12 @@ export default function FormDialog({ children }) {
     setOpen(false);
   };
   const handleSubmit = () => {
-    dispatch(addIdeaOnServer(idea));
+    dispatch(editIdeaOnServer({ ...idea, text: editedIdea }));
     setIdea("");
     setOpen(false);
   };
-
-  const [idea, setIdea] = useState("");
+  const text = useSelector((state) => state.myIdeas[idea.id].text);
+  const [editedIdea, setIdea] = useState(text);
   const handleChange = (e) => {
     setIdea(e.target.value);
   };
@@ -38,10 +38,10 @@ export default function FormDialog({ children }) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Add a new idea</DialogTitle>
+        <DialogTitle id="form-dialog-title">Edit</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To add a new idea, add your idea below and submit it.
+            To edit this idea, modify and submit it.
           </DialogContentText>
           <TextField
             autoFocus
@@ -51,7 +51,7 @@ export default function FormDialog({ children }) {
             fullWidth
             required
             multiline
-            value={idea}
+            value={editedIdea}
             onChange={handleChange}
             inputProps={{
               maxLength: 140,
