@@ -8,8 +8,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { updateNameOnServer } from "../../redux/actions/asyncActionCreators";
-
+import { updateOnServer } from "../../redux/actions/asyncActionCreators";
+import { storage } from "../../base";
 export default function FormDialog({ children }) {
   const user = useSelector((state) => state.user);
   const { displayName } = user;
@@ -22,13 +22,24 @@ export default function FormDialog({ children }) {
     setOpen(false);
   };
   const handleSubmit = () => {
-    dispatch(updateNameOnServer(name));
+    dispatch(updateOnServer("displayName", name));
     setOpen(false);
   };
 
   const [name, setName] = useState(displayName);
   const handleChange = (e) => {
     setName(e.target.value);
+  };
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    const storageRef = storage.ref(`photos/${user.uid}/${file.name}`);
+    const task = storageRef.put(file);
+    task.on("state_changed", function complete(snapShot) {
+      if (snapShot.bytesTransferred === snapShot.totalBytes) {
+        console.log("completed");
+        dispatch(updateOnServer("photoURL", file.name));
+      }
+    });
   };
 
   return (
@@ -44,6 +55,14 @@ export default function FormDialog({ children }) {
           <DialogContentText>
             To modify your personal data, save the changes.
           </DialogContentText>
+          <Button variant="contained" component="label">
+            Upload File
+            <input
+              onChange={handleFileUpload}
+              type="file"
+              style={{ display: "none" }}
+            />
+          </Button>
           <TextField
             margin="dense"
             id="idea"

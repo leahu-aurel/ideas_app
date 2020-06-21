@@ -23,12 +23,12 @@ export const signOutOnServer = () => {
   };
 };
 
-export const updateNameOnServer = (displayName) => {
+export const updateOnServer = (key, value) => {
   return (dispatch) => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user != null) {
         user.updateProfile({
-          displayName,
+          [key]: value,
         });
         return dispatch(updateUser(user));
       }
@@ -55,6 +55,7 @@ export const addIdeaOnServer = (text) => {
     });
   };
 };
+
 export const editIdeaOnServer = (idea) => {
   return (dispatch) => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -84,9 +85,9 @@ export const removeIdeaOnServer = (idea) => {
     });
   };
 };
+
 export const fetchIdeas = () => {
   return (dispatch) => {
-    console.log("inFetchIdeas");
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         db.collection("users")
@@ -95,11 +96,9 @@ export const fetchIdeas = () => {
           .get()
           .then((info) => {
             const ideas = {};
-            console.log(ideas);
             info.docs.forEach((doc) => {
               ideas[doc.id] = doc.data();
             });
-            console.log(ideas);
             return dispatch(setIdeas(ideas));
           });
       }
