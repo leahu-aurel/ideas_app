@@ -11,6 +11,7 @@ import { Box } from "@material-ui/core";
 import moment from "moment";
 
 export default ({ text, img, time }) => {
+  console.log("here");
   const name = useSelector((state) => state.user).displayName;
   return (
     <Box mt={4}>
