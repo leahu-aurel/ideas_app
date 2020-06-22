@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-import MyIdeas from "./components/main/myIdeas";
+import Ideas from "./components/main/myIdeas";
 import NavBar from "./components/nav/navBar";
 import SignIn from "./components/auth/signIn";
 import SignUp from "./components/auth/signUp";
@@ -12,9 +12,6 @@ export default () => {
     <div>
       <NavBar />
       <Switch>
-        <Route exact path="/">
-          <MyIdeas />
-        </Route>
         <Route exact path="/log_out">
           <SignOut />
         </Route>
@@ -26,6 +23,9 @@ export default () => {
         </Route>
         <Route exact path="/verify_email">
           <VerifyEmail />
+        </Route>
+        <Route exact path="/:id">
+          <Ideas />
         </Route>
       </Switch>
     </div>

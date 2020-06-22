@@ -1,44 +1,28 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import Idea from "./idea";
-import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { Container } from "@material-ui/core";
 import { useStyles } from "../auth/styles";
 import Typography from "@material-ui/core/Typography";
-import Avatar1 from "../../images/aurel.jpg";
-import { fetchIdeas } from "../../redux/actions/asyncActionCreators";
-import { storage } from "../../base";
+import { useSelector } from "react-redux";
+
+import useIdeas from "./hooks/useIdeas";
 
 export default () => {
-  const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const img = useRef();
-
-  useEffect(() => {
-    dispatch(fetchIdeas());
-  }, [dispatch, user]);
-
-  useEffect(() => {
-    const path = `photos/${user.uid}/${user.photoURL}`;
-    const pathReference = storage.ref(path);
-    pathReference.getDownloadURL().then((url) => {
-      img.current = url;
-      console.log(img.current);
-    });
-  }, [user]);
-
-  const myIdeas = useSelector((state) => Object.values(state.myIdeas));
+  const { id } = useParams();
+  const ideas = useSelector((state) => Object.values(state.ideas));
+  const [activePage, url] = useIdeas(id);
   const classes = useStyles();
-  console.log(img);
   return (
     <Container maxWidth="sm">
       <div className={classes.paper}>
-        {user ? (
+        {activePage ? (
           <>
             <Typography component="h1" variant="h4">
               Your ideas:
             </Typography>{" "}
-            {myIdeas.map((idea) => (
-              <Idea key={idea.id} idea={idea} img={img.current} />
+            {ideas.map((idea) => (
+              <Idea key={idea.id} idea={idea} img={url} />
             ))}
           </>
         ) : (

@@ -9,7 +9,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { updateOnServer } from "../../redux/actions/asyncActionCreators";
-import { storage } from "../../base";
+import { storage, db } from "../../base";
 export default function FormDialog({ children }) {
   const user = useSelector((state) => state.user);
   const { displayName } = user;
@@ -37,7 +37,11 @@ export default function FormDialog({ children }) {
     task.on("state_changed", function complete(snapShot) {
       if (snapShot.bytesTransferred === snapShot.totalBytes) {
         console.log("completed");
-        dispatch(updateOnServer("photoURL", file.name));
+        db.collection("users")
+          .doc(user.uid)
+          .collection("image")
+          .doc()
+          .set({ name: file.name });
       }
     });
   };

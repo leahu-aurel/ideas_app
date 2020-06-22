@@ -86,22 +86,19 @@ export const removeIdeaOnServer = (idea) => {
   };
 };
 
-export const fetchIdeas = () => {
+export const fetchIdeas = (id) => {
   return (dispatch) => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        db.collection("users")
-          .doc(user.uid)
-          .collection("posts")
-          .get()
-          .then((info) => {
-            const ideas = {};
-            info.docs.forEach((doc) => {
-              ideas[doc.id] = doc.data();
-            });
-            return dispatch(setIdeas(ideas));
-          });
-      }
-    });
+    db.collection("users")
+      .doc(id)
+      .collection("posts")
+      .get()
+      .then((info) => {
+        const ideas = {};
+        info.docs.forEach((doc) => {
+          ideas[doc.id] = doc.data();
+        });
+        console.log(ideas);
+        return dispatch(setIdeas(ideas));
+      });
   };
 };

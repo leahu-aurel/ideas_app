@@ -8,7 +8,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
-import Avatar1 from "../../images/aurel.jpg";
 import "./userMenu.css";
 import Link from "@material-ui/core/Link";
 import AddModal from "../modals/addModal";
@@ -58,12 +57,7 @@ export default function CustomizedMenus() {
 
   return (
     <div>
-      <Avatar
-        className="menuAvatar"
-        onClick={handleClick}
-        alt=""
-        src={Avatar1}
-      />
+      <Avatar className="menuAvatar" onClick={handleClick} alt="" src="" />
       <StyledMenu
         anchorEl={anchorEl}
         keepMounted
