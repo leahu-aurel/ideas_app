@@ -6,6 +6,7 @@ import {
   EDIT_IDEA,
   REMOVE_IDEA,
   SET_IDEAS,
+  ADD_IMAGE,
 } from "./actions";
 
 export const signIn = (user) => {
@@ -23,14 +24,14 @@ export const signOut = () => {
   };
 };
 
-export const updateUser = (user) => {
-  console.log(user);
-  localStorage.setItem("user", JSON.stringify(user));
-  return {
-    type: UPDATE_USER,
-    user,
-  };
-};
+// export const updateField = () => {
+//   console.log(user);
+//   localStorage.setItem("user", JSON.stringify(user));
+//   return {
+//     type: UPDATE_USER,
+//     user,
+//   };
+// };
 
 export const addIdea = (idea) => {
   return {
@@ -55,5 +56,13 @@ export const setIdeas = (ideas) => {
   return {
     type: SET_IDEAS,
     ideas,
+  };
+};
+
+export const addImage = (id, url) => {
+  return {
+    type: ADD_IMAGE,
+    id,
+    url,
   };
 };

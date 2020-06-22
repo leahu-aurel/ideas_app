@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-import Ideas from "./components/main/myIdeas";
+import Ideas from "./components/main/ideas";
 import NavBar from "./components/nav/navBar";
 import SignIn from "./components/auth/signIn";
 import SignUp from "./components/auth/signUp";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -9,54 +9,12 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Copyright from "./copyright";
 import { useStyles } from "./styles";
-import firebase from "../../base";
-import { useHistory } from "react-router-dom";
+import useSignUp from "./hooks/useSignUp";
+
 export default () => {
   const classes = useStyles();
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
-  const [pass2, setPass2] = useState("");
-  const history = useHistory();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let user = null;
-    if (pass === pass2 && fname && lname) {
-      const displayName = `${fname} ${lname}`;
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, pass)
-        .then(() => {
-          user = firebase.auth().currentUser;
-          user.sendEmailVerification();
-        })
-        .then(() => {
-          user.updateProfile({
-            displayName,
-          });
-        })
-        .then(() => history.push("/verify_email"))
-        .catch((error) => console.log(error.message));
-    }
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-  const handleFnameChange = (e) => {
-    setFname(e.target.value);
-  };
-  const handleLnameChange = (e) => {
-    setLname(e.target.value);
-  };
-
-  const handlePassChange = (e) => {
-    setPass(e.target.value);
-  };
-  const handlePass2Change = (e) => {
-    setPass2(e.target.value);
-  };
+  const [credentials, handleChange, handleSubmit] = useSignUp();
+  const { fname, lname, email, pass, pass2 } = credentials;
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
@@ -70,54 +28,58 @@ export default () => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-                name="firstName"
+                name="fName"
                 variant="outlined"
                 required
                 fullWidth
                 value={fname}
-                onChange={handleFnameChange}
+                onChange={handleChange}
                 label="First Name"
                 autoFocus
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+                name="lName"
                 variant="outlined"
                 required
                 fullWidth
                 value={lname}
-                onChange={handleLnameChange}
+                onChange={handleChange}
                 label="Last Name"
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
+                name="email"
                 variant="outlined"
                 required
                 fullWidth
                 value={email}
-                onChange={handleEmailChange}
+                onChange={handleChange}
                 label="Email Address"
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
+                name="pass"
                 variant="outlined"
                 required
                 fullWidth
                 value={pass}
-                onChange={handlePassChange}
+                onChange={handleChange}
                 label="Password"
                 type="password"
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
+                name="pass2"
                 variant="outlined"
                 required
                 fullWidth
                 value={pass2}
-                onChange={handlePass2Change}
+                onChange={handleChange}
                 label="Repeat password"
                 type="password"
               />

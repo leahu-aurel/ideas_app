@@ -3,6 +3,7 @@ import { withStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -12,7 +13,7 @@ import "./userMenu.css";
 import Link from "@material-ui/core/Link";
 import AddModal from "../modals/addModal";
 import SettingsModal from "../modals/settingsModal";
-
+import useUrl from "./hooks/useUrl";
 const StyledMenu = withStyles({
   paper: {
     border: "1px solid #d3d4d5",
@@ -44,9 +45,8 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-export default function CustomizedMenus() {
+export default function CustomizedMenus({ id }) {
   const [anchorEl, setAnchorEl] = useState(null);
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -55,15 +55,28 @@ export default function CustomizedMenus() {
     setAnchorEl(null);
   };
 
+  const url = useUrl(id);
   return (
     <div>
-      <Avatar className="menuAvatar" onClick={handleClick} alt="" src="" />
+      <Avatar className="menuAvatar" onClick={handleClick} alt="" src={url} />
       <StyledMenu
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+        <Link
+          href={`/${id}`}
+          color="inherit"
+          style={{ textDecoration: "none" }}
+        >
+          <StyledMenuItem>
+            <ListItemIcon>
+              <PermIdentityIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText primary="Profile" />
+          </StyledMenuItem>
+        </Link>
         <AddModal>
           <StyledMenuItem>
             <ListItemIcon>

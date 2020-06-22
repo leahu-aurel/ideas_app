@@ -23,16 +23,11 @@ export const signOutOnServer = () => {
   };
 };
 
-export const updateOnServer = (key, value) => {
+export const updateOnServer = (id, key, value) => {
   return (dispatch) => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user != null) {
-        user.updateProfile({
-          [key]: value,
-        });
-        return dispatch(updateUser(user));
-      }
-    });
+    db.collection("users")
+      .doc(id)
+      .update({ [key]: value });
   };
 };
 
@@ -47,7 +42,7 @@ export const addIdeaOnServer = (text) => {
       if (user) {
         db.collection("users")
           .doc(user.uid)
-          .collection("posts")
+          .collection("ideas")
           .doc(idea.id)
           .set(idea);
         return dispatch(addIdea(idea));
@@ -62,7 +57,7 @@ export const editIdeaOnServer = (idea) => {
       if (user) {
         db.collection("users")
           .doc(user.uid)
-          .collection("posts")
+          .collection("ideas")
           .doc(idea.id)
           .set(idea);
         return dispatch(editIdea(idea));
@@ -77,7 +72,7 @@ export const removeIdeaOnServer = (idea) => {
       if (user) {
         db.collection("users")
           .doc(user.uid)
-          .collection("posts")
+          .collection("postideass")
           .doc(idea.id)
           .delete();
         return dispatch(removeIdea(idea));
@@ -88,17 +83,15 @@ export const removeIdeaOnServer = (idea) => {
 
 export const fetchIdeas = (id) => {
   return (dispatch) => {
-    db.collection("users")
-      .doc(id)
-      .collection("posts")
-      .get()
-      .then((info) => {
-        const ideas = {};
-        info.docs.forEach((doc) => {
-          ideas[doc.id] = doc.data();
-        });
-        console.log(ideas);
-        return dispatch(setIdeas(ideas));
+    console.log(id);
+
+    const userRef = db.collection("users").doc(id).collection("ideas");
+    userRef.get().then((snapShot) => {
+      const ideas = {};
+      snapShot.docs.forEach((doc) => {
+        ideas[doc.id] = doc.data();
       });
+      return dispatch(setIdeas(ideas));
+    });
   };
 };

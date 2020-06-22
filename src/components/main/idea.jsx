@@ -6,12 +6,14 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { useSelector } from "react-redux";
 import { Box } from "@material-ui/core";
 import moment from "moment";
 import IdeaMenu from "./ideaMenu";
-export default ({ img, idea }) => {
-  const name = useSelector((state) => state.user).displayName;
+import useName from "./hooks/useName";
+import { useImage } from "./hooks/useImage";
+export default ({ idea, id }) => {
+  const name = useName(id);
+  const img = useImage(id);
   return (
     <Box mt={4} width="100%">
       <Card>

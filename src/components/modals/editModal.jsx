@@ -20,12 +20,10 @@ export default function FormDialog({ children, idea }) {
     setOpen(false);
   };
   const handleSubmit = () => {
-    // dispatch(editIdeaOnServer({ ...idea, text: editedIdea }));
-    setIdea("");
+    dispatch(editIdeaOnServer({ ...idea, text: editedIdea }));
     setOpen(false);
   };
-  // const text = useSelector((state) => state.myIdeas[idea.id].text);
-  const text = "";
+  const text = useSelector((state) => state.ideas[idea.id].text);
   const [editedIdea, setIdea] = useState(text);
   const handleChange = (e) => {
     setIdea(e.target.value);

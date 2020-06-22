@@ -9,7 +9,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { updateOnServer } from "../../redux/actions/asyncActionCreators";
-import { storage, db } from "../../base";
+import useFileUpload from "./hooks/useFileUpload";
+
 export default function FormDialog({ children }) {
   const user = useSelector((state) => state.user);
   const { displayName } = user;
@@ -22,7 +23,7 @@ export default function FormDialog({ children }) {
     setOpen(false);
   };
   const handleSubmit = () => {
-    dispatch(updateOnServer("displayName", name));
+    dispatch(updateOnServer(user.uid, "displayName", name));
     setOpen(false);
   };
 
@@ -30,21 +31,7 @@ export default function FormDialog({ children }) {
   const handleChange = (e) => {
     setName(e.target.value);
   };
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    const storageRef = storage.ref(`photos/${user.uid}/${file.name}`);
-    const task = storageRef.put(file);
-    task.on("state_changed", function complete(snapShot) {
-      if (snapShot.bytesTransferred === snapShot.totalBytes) {
-        console.log("completed");
-        db.collection("users")
-          .doc(user.uid)
-          .collection("image")
-          .doc()
-          .set({ name: file.name });
-      }
-    });
-  };
+  const handleFileUpload = useFileUpload();
 
   return (
     <div>
