@@ -15,7 +15,7 @@ export default () => {
       firebase
         .auth()
         .createUserWithEmailAndPassword(email, pass)
-        .then((cred) => {
+        .then(() => {
           user = firebase.auth().currentUser;
           user.sendEmailVerification();
         })

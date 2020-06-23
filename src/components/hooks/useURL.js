@@ -17,7 +17,7 @@ export const useURL = (id, image) => {
         setURL(urlRef);
       });
     }
-  }, [id, image, dispatch]);
+  }, [id, image, images, dispatch]);
 
   if (images[id]) {
     return images[id];

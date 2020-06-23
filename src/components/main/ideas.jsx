@@ -2,7 +2,6 @@ import React from "react";
 import Idea from "./idea";
 import { Container } from "@material-ui/core";
 import { useStyles } from "../auth/styles";
-import Typography from "@material-ui/core/Typography";
 import { useSelector } from "react-redux";
 
 import useIdeas from "../hooks/useIdeas";

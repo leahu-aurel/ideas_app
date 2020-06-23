@@ -8,16 +8,27 @@ import { Box } from "@material-ui/core";
 import { useImage } from "../hooks/useImage";
 import { useURL } from "../hooks/useURL";
 import { useSelector } from "react-redux";
+import { isFollowed } from "../../utils/isFollowed";
+import { handleFollow } from "../../utils/handleFollow";
 export default ({ id }) => {
+  const img = useImage(id);
+  const url = useURL(id, img);
+  const user = useSelector((state) => state.user);
+
   const [color, setColor] = useState("inherit");
-  const followed = true;
+  const [followed, setFollowed] = useState(false);
+  useEffect(() => {
+    isFollowed(id).then((res) => setFollowed(res));
+  }, [user.uid, id]);
 
   useEffect(() => {
     followed ? setColor("secondary") : setColor("inherit");
   }, [followed]);
-  const img = useImage(id);
-  const url = useURL(id, img);
-  const user = useSelector((state) => state.user);
+
+  const handleFollowClick = () => {
+    handleFollow(id, !followed);
+    setFollowed(!followed);
+  };
   return (
     <Box mb={6} width="100%">
       <Card>
@@ -26,7 +37,7 @@ export default ({ id }) => {
           action={
             user.uid !== id && (
               <>
-                <IconButton aria-label="settings">
+                <IconButton onClick={handleFollowClick} aria-label="settings">
                   <FavoriteIcon color={color} />
                 </IconButton>
               </>
