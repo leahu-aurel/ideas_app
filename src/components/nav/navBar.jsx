@@ -12,7 +12,7 @@ import { useHistory } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useSelector } from "react-redux";
-import { queryUsers } from "../../utils/queryUsers";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -30,7 +30,6 @@ export default () => {
   const handleClick = () => {
     history.push("/search");
   };
-  queryUsers("leah");
   return (
     <AppBar position="static" color="secondary">
       <Toolbar>

@@ -1,6 +1,5 @@
 import { storage, db } from "../../../base";
 import { useSelector, useDispatch } from "react-redux";
-import { updateOnServer } from "../../../redux/actions/asyncActionCreators";
 import { addImage } from "../../../redux/actions/syncActionCreators";
 import getPhotoURL from "../../../utils/getPhotoURL";
 export default () => {
@@ -13,10 +12,9 @@ export default () => {
     const task = storageRef.put(file);
     task.on("state_changed", function complete(snapShot) {
       if (snapShot.bytesTransferred === snapShot.totalBytes) {
-        dispatch(updateOnServer("photoURL", name));
         db.collection("users").doc(user.uid).update({ image: name });
-        getPhotoURL(user.id, name).then((url) =>
-          dispatch(addImage(user.id, url))
+        getPhotoURL(user.uid, name).then((url) =>
+          dispatch(addImage(user.uid, url))
         );
       }
     });

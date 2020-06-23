@@ -3,9 +3,11 @@ import { db } from "../base";
 export const queryUsers = async (substr) => {
   const userRef = db.collection("users");
   const snapShot = await userRef.get();
-  snapShot.docs.map((doc) => {
-    console.log(
-      doc.data().displayName.toLowerCase().indexOf(substr.toLowerCase())
-    );
-  });
+  const queries = snapShot.docs.map((doc) => doc.data());
+  const filteredQueries = queries.filter(
+    (doc) => doc.displayName.toLowerCase().indexOf(substr.toLowerCase()) > -1
+  );
+  return filteredQueries;
+  // const finalSnapshots = filteredSnapshot.docs.map((doc) => doc.data());
+  // console.log(finalSnapshots);
 };

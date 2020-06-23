@@ -15,12 +15,9 @@ export const useImage = (id) => {
       .get()
       .then((userRef) => userRef.data().image)
       .then((img) => {
-        console.log("get_photo");
         return getPhotoURL(id, img);
       })
       .then((urlRef) => {
-        console.log("dispatching");
-        dispatch(addImage(id, urlRef));
         setUrl(urlRef);
       });
   }, [id]);

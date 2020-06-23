@@ -7,11 +7,15 @@ import SignIn from "./components/auth/signIn";
 import SignUp from "./components/auth/signUp";
 import VerifyEmail from "./components/auth/emailVerify";
 import SignOut from "./components/auth/signOut";
+import Search from "./components/search/search";
 export default () => {
   return (
     <div>
       <NavBar />
       <Switch>
+        <Route exact path="/search">
+          <Search />
+        </Route>
         <Route exact path="/log_out">
           <SignOut />
         </Route>
