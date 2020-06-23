@@ -18,7 +18,12 @@ export default ({ id }) => {
   const [color, setColor] = useState("inherit");
   const [followed, setFollowed] = useState(false);
   useEffect(() => {
-    isFollowed(id).then((res) => setFollowed(res));
+    console.log("here");
+    isFollowed(user.uid, id).then((res) => {
+      console.log(res);
+      console.log("here");
+      setFollowed(res);
+    });
   }, [user.uid, id]);
 
   useEffect(() => {

@@ -31,14 +31,15 @@ export const updateOnServer = (id, key, value) => {
 };
 
 export const addIdeaOnServer = (text) => {
-  const idea = {
-    time: Date.now(),
-    id: v4(),
-    text,
-  };
   return (dispatch) => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        const idea = {
+          time: Date.now(),
+          id: v4(),
+          text,
+          userID: user.uid,
+        };
         db.collection("users")
           .doc(user.uid)
           .collection("ideas")

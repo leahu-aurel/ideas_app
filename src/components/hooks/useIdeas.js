@@ -8,7 +8,6 @@ import { isARealUser } from "../../utils/isARealUser";
 export default () => {
   const { id } = useParams();
   const [activePage, setActivePage] = useState("");
-
   const dispatch = useDispatch();
   useEffect(() => {
     id && isARealUser(id).then((isUser) => isUser && setActivePage(id));

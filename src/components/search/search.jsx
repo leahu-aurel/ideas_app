@@ -13,7 +13,6 @@ export default () => {
   const classes = useStyles();
 
   const handleQueryChange = (e) => {
-    console.log(e.target.value);
     if (e.target.value) {
       queryUsers(e.target.value).then((queries) => {
         queries ? setQueryResults(queries) : setQueryResults("");
@@ -44,15 +43,11 @@ export default () => {
             autoComplete="current-search"
           />
           <Grid container justify="center">
-            {queryResults ? (
+            {queryResults && (
               <>
                 {queryResults.map((user) => (
                   <User key={user.id} {...user} />
                 ))}
-              </>
-            ) : (
-              <>
-                <Grid item>Found profiles</Grid>
               </>
             )}
           </Grid>

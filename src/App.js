@@ -1,18 +1,22 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-import Ideas from "./components/main/ideas";
+import IndividualPage from "./components/main/individualPage";
 import NavBar from "./components/nav/navBar";
 import SignIn from "./components/auth/signIn";
 import SignUp from "./components/auth/signUp";
 import VerifyEmail from "./components/auth/emailVerify";
 import SignOut from "./components/auth/signOut";
 import Search from "./components/search/search";
+import Feed from "./components/main/feed";
 export default () => {
   return (
     <div>
       <NavBar />
       <Switch>
+        <Route exact path="/">
+          <Feed />
+        </Route>
         <Route exact path="/search">
           <Search />
         </Route>
@@ -29,7 +33,7 @@ export default () => {
           <VerifyEmail />
         </Route>
         <Route exact path="/:id">
-          <Ideas />
+          <IndividualPage />
         </Route>
       </Switch>
     </div>
