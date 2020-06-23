@@ -3,11 +3,10 @@ import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
 import { Box } from "@material-ui/core";
-import { useImage } from "../main/hooks/useImage";
 import { useHistory } from "react-router-dom";
-import getPhotoURL from "../../utils/getPhotoURL";
+import { useURL } from "../hooks/useURL";
 export default ({ image, id, displayName }) => {
-  const url = getPhotoURL(id, image);
+  const url = useURL(id, image);
   const history = useHistory();
   const handleClick = () => {
     history.push(`/${id}`);

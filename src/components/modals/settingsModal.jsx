@@ -9,7 +9,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { updateOnServer } from "../../redux/actions/asyncActionCreators";
-import useFileUpload from "./hooks/useFileUpload";
+import useFileUpload from "../hooks/useFileUpload";
 
 export default function FormDialog({ children }) {
   const user = useSelector((state) => state.user);

@@ -1,7 +1,6 @@
 import {
   SIGN_IN,
   SIGN_OUT,
-  UPDATE_USER,
   ADD_IDEA,
   EDIT_IDEA,
   REMOVE_IDEA,
@@ -23,15 +22,6 @@ export const signOut = () => {
     type: SIGN_OUT,
   };
 };
-
-// export const updateField = () => {
-//   console.log(user);
-//   localStorage.setItem("user", JSON.stringify(user));
-//   return {
-//     type: UPDATE_USER,
-//     user,
-//   };
-// };
 
 export const addIdea = (idea) => {
   return {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getDisplayName } from "../../../utils/getDisplayName";
+import { getDisplayName } from "../../utils/getDisplayName";
 
 export default (id) => {
   const [name, setName] = useState("");

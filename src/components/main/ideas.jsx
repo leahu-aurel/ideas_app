@@ -5,35 +5,22 @@ import { useStyles } from "../auth/styles";
 import Typography from "@material-ui/core/Typography";
 import { useSelector } from "react-redux";
 
-import useIdeas from "./hooks/useIdeas";
-
+import useIdeas from "../hooks/useIdeas";
+import UserProfile from "./userProfile";
 export default () => {
-  const user = useSelector((state) => state.user);
   const ideas = useSelector((state) => Object.values(state.ideas));
   const activePage = useIdeas();
   const classes = useStyles();
   return (
     <Container maxWidth="sm">
       <div className={classes.paper}>
-        {activePage ? (
+        {activePage && (
           <>
-            {user && user.uid === activePage ? (
-              <>
-                <Typography component="h1" variant="h4">
-                  Your ideas:
-                </Typography>
-              </>
-            ) : (
-              <>{""}</>
-            )}
+            <UserProfile id={activePage}></UserProfile>
             {ideas.map((idea) => (
               <Idea key={idea.id} idea={idea} id={activePage} />
             ))}
           </>
-        ) : (
-          <Typography component="h1" variant="h4">
-            Log in{" "}
-          </Typography>
         )}
       </div>
     </Container>

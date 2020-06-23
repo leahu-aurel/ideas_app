@@ -1,7 +1,7 @@
-import { storage, db } from "../../../base";
+import { storage, db } from "../../base";
 import { useSelector, useDispatch } from "react-redux";
-import { addImage } from "../../../redux/actions/syncActionCreators";
-import getPhotoURL from "../../../utils/getPhotoURL";
+import { addImage } from "../../redux/actions/syncActionCreators";
+import getPhotoURL from "../../utils/getPhotoURL";
 export default () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();

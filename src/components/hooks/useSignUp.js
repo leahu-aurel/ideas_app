@@ -1,5 +1,5 @@
 import { useState } from "react";
-import firebase, { db } from "../../../base";
+import firebase, { db } from "../../base";
 import { useHistory } from "react-router-dom";
 
 export default () => {

@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Copyright from "./copyright";
 import { useStyles } from "./styles";
-import useSignUp from "./hooks/useSignUp";
+import useSignUp from "../hooks/useSignUp";
 
 export default () => {
   const classes = useStyles();

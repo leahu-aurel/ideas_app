@@ -13,7 +13,8 @@ import "./userMenu.css";
 import Link from "@material-ui/core/Link";
 import AddModal from "../modals/addModal";
 import SettingsModal from "../modals/settingsModal";
-import useUrl from "./hooks/useUrl";
+import { useImage } from "../hooks/useImage";
+import { useURL } from "../hooks/useURL";
 const StyledMenu = withStyles({
   paper: {
     border: "1px solid #d3d4d5",
@@ -55,7 +56,8 @@ export default function CustomizedMenus({ id }) {
     setAnchorEl(null);
   };
 
-  const url = useUrl(id);
+  const image = useImage(id);
+  const url = useURL(id, image);
   return (
     <div>
       <Avatar className="menuAvatar" onClick={handleClick} alt="" src={url} />

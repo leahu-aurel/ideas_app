@@ -1,6 +1,5 @@
 import {
   signOut,
-  updateUser,
   addIdea,
   removeIdea,
   editIdea,
@@ -72,7 +71,7 @@ export const removeIdeaOnServer = (idea) => {
       if (user) {
         db.collection("users")
           .doc(user.uid)
-          .collection("postideass")
+          .collection("ideas")
           .doc(idea.id)
           .delete();
         return dispatch(removeIdea(idea));
@@ -83,8 +82,6 @@ export const removeIdeaOnServer = (idea) => {
 
 export const fetchIdeas = (id) => {
   return (dispatch) => {
-    console.log(id);
-
     const userRef = db.collection("users").doc(id).collection("ideas");
     userRef.get().then((snapShot) => {
       const ideas = {};

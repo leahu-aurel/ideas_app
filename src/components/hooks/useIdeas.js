@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { fetchIdeas } from "../../../redux/actions/asyncActionCreators";
-import { isARealUser } from "../../../utils/isARealUser";
+import { fetchIdeas } from "../../redux/actions/asyncActionCreators";
+import { isARealUser } from "../../utils/isARealUser";
 
 export default () => {
   const { id } = useParams();

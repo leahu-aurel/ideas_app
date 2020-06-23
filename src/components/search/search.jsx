@@ -14,7 +14,7 @@ export default () => {
 
   const handleQueryChange = (e) => {
     console.log(e.target.value);
-    if (e.target.value.length >= 3) {
+    if (e.target.value) {
       queryUsers(e.target.value).then((queries) => {
         queries ? setQueryResults(queries) : setQueryResults("");
       });

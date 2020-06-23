@@ -9,16 +9,19 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Box } from "@material-ui/core";
 import moment from "moment";
 import IdeaMenu from "./ideaMenu";
-import useName from "./hooks/useName";
-import { useImage } from "./hooks/useImage";
+import useName from "../hooks/useName";
+import { useImage } from "../hooks/useImage";
+import { useURL } from "../hooks/useURL";
 export default ({ idea, id }) => {
   const name = useName(id);
   const img = useImage(id);
+  const url = useURL(id, img);
+
   return (
-    <Box mt={4} width="100%">
+    <Box mb={3} width="100%">
       <Card>
         <CardHeader
-          avatar={<Avatar className="menuAvatar" alt="" src={img} />}
+          avatar={<Avatar className="menuAvatar" alt="" src={url} />}
           action={
             <IdeaMenu idea={idea}>
               <IconButton aria-label="settings">
