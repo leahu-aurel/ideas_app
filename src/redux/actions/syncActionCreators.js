@@ -6,6 +6,7 @@ import {
   REMOVE_IDEA,
   SET_IDEAS,
   ADD_IMAGE,
+  ADD_URL,
   UPDATE_USER,
 } from "./actions";
 
@@ -54,9 +55,17 @@ export const setIdeas = (ideas) => {
   };
 };
 
-export const addImage = (id, url) => {
+export const addImage = (id, image) => {
   return {
     type: ADD_IMAGE,
+    id,
+    image,
+  };
+};
+
+export const addURL = (id, url) => {
+  return {
+    type: ADD_URL,
     id,
     url,
   };

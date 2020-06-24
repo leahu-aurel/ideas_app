@@ -1,26 +1,25 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import getPhotoURL from "../../utils/getPhotoURL";
-import { addImage } from "../../redux/actions/syncActionCreators";
+import { addImage, addURL } from "../../redux/actions/syncActionCreators";
+import { getImage } from "../../utils/getImage";
 
-export const useURL = (id, image) => {
-  const [url, setURL] = useState("");
-  const images = useSelector((state) => state.images);
+export const useURL = (id) => {
+  const image = useSelector((state) => state.images[id]);
+  const url = useSelector((state) => state.urls[id]);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (id && image) {
+    if (image) {
       getPhotoURL(id, image).then((urlRef) => {
-        if (!(images[id] === urlRef)) {
-          dispatch(addImage(id, urlRef));
+        if (url !== urlRef) {
+          dispatch(addURL(id, urlRef));
         }
-        setURL(urlRef);
       });
+    } else {
+      getImage(id).then((img) => dispatch(addImage(id, img)));
     }
-  }, [id, image, images, dispatch]);
+  }, [id, url, image, dispatch]);
 
-  if (images[id]) {
-    return images[id];
-  }
   return url;
 };

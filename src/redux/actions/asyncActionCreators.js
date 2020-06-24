@@ -5,6 +5,7 @@ import {
   editIdea,
   setIdeas,
   signIn,
+  addImage,
 } from "./syncActionCreators";
 import firebase, { db } from "../../base";
 import { v4 } from "uuid";
@@ -51,6 +52,17 @@ export const addIdeaOnServer = (text) => {
           .doc(idea.id)
           .set(idea);
         return dispatch(addIdea(idea));
+      }
+    });
+  };
+};
+
+export const addImageOnServer = (image) => {
+  return (dispatch) => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        db.collection("users").doc(user.uid).update({ image });
+        return dispatch(addImage(user.uid, image));
       }
     });
   };

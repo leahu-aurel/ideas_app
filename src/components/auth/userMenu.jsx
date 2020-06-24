@@ -10,11 +10,11 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
 import "./userMenu.css";
-import Link from "@material-ui/core/Link";
+import { Link } from "react-router-dom";
 import AddModal from "../modals/addModal";
 import SettingsModal from "../modals/settingsModal";
-import { useImage } from "../hooks/useImage";
 import { useURL } from "../hooks/useURL";
+
 const StyledMenu = withStyles({
   paper: {
     border: "1px solid #d3d4d5",
@@ -55,9 +55,7 @@ export default function CustomizedMenus({ id }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  const image = useImage(id);
-  const url = useURL(id, image);
+  const url = useURL(id);
   return (
     <div>
       <Avatar className="menuAvatar" onClick={handleClick} alt="" src={url} />
@@ -67,11 +65,7 @@ export default function CustomizedMenus({ id }) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <Link
-          href={`/${id}`}
-          color="inherit"
-          style={{ textDecoration: "none" }}
-        >
+        <Link to={`/${id}`} style={{ textDecoration: "none", color: "black" }}>
           <StyledMenuItem>
             <ListItemIcon>
               <PermIdentityIcon fontSize="small" />
@@ -96,11 +90,7 @@ export default function CustomizedMenus({ id }) {
           </StyledMenuItem>
         </SettingsModal>
 
-        <Link
-          href="/log_out"
-          color="inherit"
-          style={{ textDecoration: "none" }}
-        >
+        <Link to="/log_out" style={{ textDecoration: "none", color: "black" }}>
           <StyledMenuItem>
             <ListItemIcon>
               <ExitToAppIcon fontSize="small" />

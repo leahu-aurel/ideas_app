@@ -14,9 +14,6 @@ export default ({ id }) => {
   const img = useImage(id);
   const url = useURL(id, img);
   const user = useSelector((state) => state.user);
-
-  const [color, setColor] = useState("inherit");
-  const [followed, setFollowed] = useState(false);
   useEffect(() => {
     if (user) {
       isFollowed(user.uid, id).then((res) => {
@@ -25,6 +22,8 @@ export default ({ id }) => {
     }
   }, [user, id]);
 
+  const [color, setColor] = useState("inherit");
+  const [followed, setFollowed] = useState(false);
   useEffect(() => {
     followed ? setColor("secondary") : setColor("inherit");
   }, [followed]);
