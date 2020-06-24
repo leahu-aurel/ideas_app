@@ -4,8 +4,8 @@ import {
   removeIdea,
   editIdea,
   setIdeas,
-  signIn,
   addImage,
+  addName,
 } from "./syncActionCreators";
 import firebase, { db } from "../../base";
 import { v4 } from "uuid";
@@ -20,18 +20,6 @@ export const signOutOnServer = () => {
       })
       .catch((error) => {
         console.log(error);
-      });
-  };
-};
-
-export const updateOnServer = (id, key, value) => {
-  return (dispatch) => {
-    db.collection("users")
-      .doc(id)
-      .update({ [key]: value })
-      .then((user) => {
-        console.log("here");
-        console.log(user);
       });
   };
 };
@@ -56,7 +44,17 @@ export const addIdeaOnServer = (text) => {
     });
   };
 };
-
+export const updateOnServer = (id, key, value) => {
+  return (dispatch) => {
+    db.collection("users")
+      .doc(id)
+      .update({ [key]: value })
+      .then((user) => {
+        console.log("here");
+        console.log(user);
+      });
+  };
+};
 export const addImageOnServer = (image) => {
   return (dispatch) => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -67,7 +65,16 @@ export const addImageOnServer = (image) => {
     });
   };
 };
-
+export const addNameOnServer = (displayName) => {
+  return (dispatch) => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        db.collection("users").doc(user.uid).update({ displayName });
+        dispatch(addName(user.uid, displayName));
+      }
+    });
+  };
+};
 export const editIdeaOnServer = (idea) => {
   return (dispatch) => {
     firebase.auth().onAuthStateChanged((user) => {

@@ -9,7 +9,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Box } from "@material-ui/core";
 import moment from "moment";
 import IdeaMenu from "./ideaMenu";
-import useName from "../hooks/useName";
+import { useName } from "../hooks/useName";
 import { useImage } from "../hooks/useImage";
 import { useURL } from "../hooks/useURL";
 import { useSelector } from "react-redux";

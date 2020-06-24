@@ -9,3 +9,4 @@ export const SET_IDEAS = "SET_IDEAS";
 
 export const ADD_IMAGE = "ADD_IMAGE";
 export const ADD_URL = "ADD_URL";
+export const ADD_NAME = "ADD_NAME";

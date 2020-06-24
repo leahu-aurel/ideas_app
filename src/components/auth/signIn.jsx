@@ -32,7 +32,7 @@ export default function SignIn() {
     e.preventDefault();
     getResponse(email, pass).then(({ user, error }) =>
       user
-        ? (console.log(user), dispatch(signIn(user)), history.push("/"))
+        ? (dispatch(signIn(user)), history.push("/"))
         : setError(error.message)
     );
     // ;

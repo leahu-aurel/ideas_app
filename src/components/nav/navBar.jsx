@@ -10,7 +10,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import UserMenu from "../auth/userMenu";
 import { useHistory } from "react-router-dom";
-import Link from "@material-ui/core/Link";
 import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -27,12 +26,10 @@ export default () => {
   const classes = useStyles();
   const user = useSelector((state) => state.user);
   const history = useHistory();
-  const pushToSearch = () => {
-    history.push("/search");
+  const pushTo = (link) => {
+    history.push(link);
   };
-  const pushToHome = () => {
-    history.push("/");
-  };
+
   return (
     <AppBar position="static" color="secondary">
       <Toolbar>
@@ -40,7 +37,7 @@ export default () => {
           edge="start"
           className={classes.menuButton}
           color="inherit"
-          onClick={pushToHome}
+          onClick={() => pushTo("/")}
           aria-label="menu"
         >
           <HomeIcon />
@@ -52,7 +49,7 @@ export default () => {
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
-            onClick={pushToSearch}
+            onClick={() => pushTo("/search")}
           >
             <SearchRoundedIcon />
           </IconButton>
@@ -63,26 +60,12 @@ export default () => {
           </>
         ) : (
           <>
-            <Button color="inherit">
-              {" "}
-              <Link
-                color="inherit"
-                href="/sign_in"
-                style={{ textDecoration: "none" }}
-              >
-                Sign In
-              </Link>
+            <Button color="inherit" onClick={() => pushTo("/sign_in")}>
+              Sign In
             </Button>
             <Box ml={3}>
-              <Button color="inherit">
-                {" "}
-                <Link
-                  color="inherit"
-                  href="/sign_up"
-                  style={{ textDecoration: "none" }}
-                >
-                  Sign Up
-                </Link>
+              <Button color="inherit" onClick={() => pushTo("/sign_up")}>
+                Sign Up
               </Button>
             </Box>
           </>

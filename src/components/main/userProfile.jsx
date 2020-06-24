@@ -5,14 +5,16 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { Box } from "@material-ui/core";
-import { useImage } from "../hooks/useImage";
 import { useURL } from "../hooks/useURL";
 import { useSelector } from "react-redux";
 import { isFollowed } from "../../utils/isFollowed";
 import { handleFollow } from "../../utils/handleFollow";
+import { useName } from "../hooks/useName";
 export default ({ id }) => {
-  const img = useImage(id);
-  const url = useURL(id, img);
+  const name = useName(id);
+  console.log(id);
+  const url = useURL(id);
+  console.log(url);
   const user = useSelector((state) => state.user);
   useEffect(() => {
     if (user) {
@@ -47,7 +49,7 @@ export default ({ id }) => {
               </>
             )
           }
-          title="Aurel Leahu"
+          title={name}
         />
       </Card>
     </Box>

@@ -8,6 +8,7 @@ import {
   ADD_IMAGE,
   ADD_URL,
   UPDATE_USER,
+  ADD_NAME,
 } from "./actions";
 
 export const signIn = (user) => {
@@ -56,10 +57,20 @@ export const setIdeas = (ideas) => {
 };
 
 export const addImage = (id, image) => {
+  console.log(id);
+  console.log(image);
   return {
     type: ADD_IMAGE,
     id,
     image,
+  };
+};
+
+export const addName = (id, name) => {
+  return {
+    type: ADD_NAME,
+    id,
+    name,
   };
 };
 

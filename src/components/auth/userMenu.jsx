@@ -55,6 +55,8 @@ export default function CustomizedMenus({ id }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  console.log("userMenu");
+  console.log(id);
   const url = useURL(id);
   return (
     <div>

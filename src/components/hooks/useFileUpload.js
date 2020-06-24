@@ -1,6 +1,6 @@
 import { storage } from "../../base";
 import { useSelector, useDispatch } from "react-redux";
-import { addImage } from "../../redux/actions/syncActionCreators";
+import { addImageOnServer } from "../../redux/actions/asyncActionCreators";
 export default () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -11,7 +11,8 @@ export default () => {
     const task = storageRef.put(file);
     task.on("state_changed", function complete(snapShot) {
       if (snapShot.bytesTransferred === snapShot.totalBytes) {
-        dispatch(addImage(user.uid, name));
+        console.log("uploaded");
+        dispatch(addImageOnServer(name));
       }
     });
   };
