@@ -6,10 +6,10 @@ import {
   REMOVE_IDEA,
   SET_IDEAS,
   ADD_IMAGE,
+  UPDATE_USER,
 } from "./actions";
 
 export const signIn = (user) => {
-  localStorage.setItem("user", JSON.stringify(user));
   return {
     type: SIGN_IN,
     user,
@@ -17,7 +17,6 @@ export const signIn = (user) => {
 };
 
 export const signOut = () => {
-  localStorage.removeItem("user");
   return {
     type: SIGN_OUT,
   };
@@ -33,6 +32,12 @@ export const editIdea = (idea) => {
   return {
     type: EDIT_IDEA,
     idea,
+  };
+};
+export const updateUser = (user) => {
+  return {
+    type: UPDATE_USER,
+    user,
   };
 };
 export const removeIdea = (idea) => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 
 import IndividualPage from "./components/main/individualPage";
@@ -9,7 +9,19 @@ import VerifyEmail from "./components/auth/emailVerify";
 import SignOut from "./components/auth/signOut";
 import Search from "./components/search/search";
 import Feed from "./components/main/feed";
+
+import firebase from "./base";
+import { useDispatch } from "react-redux";
+import { updateUser } from "./redux/actions/syncActionCreators";
 export default () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        dispatch(updateUser(user));
+      }
+    });
+  });
   return (
     <div>
       <NavBar />

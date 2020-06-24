@@ -4,6 +4,7 @@ import {
   removeIdea,
   editIdea,
   setIdeas,
+  signIn,
 } from "./syncActionCreators";
 import firebase, { db } from "../../base";
 import { v4 } from "uuid";
@@ -26,7 +27,11 @@ export const updateOnServer = (id, key, value) => {
   return (dispatch) => {
     db.collection("users")
       .doc(id)
-      .update({ [key]: value });
+      .update({ [key]: value })
+      .then((user) => {
+        console.log("here");
+        console.log(user);
+      });
   };
 };
 
@@ -91,5 +96,16 @@ export const fetchIdeas = (id) => {
       });
       return dispatch(setIdeas(ideas));
     });
+  };
+};
+
+export const signInOnServer = (email, pass) => {
+  return (dispatch) => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, pass)
+      .then(({ user }) => {
+        dispatch(signIn(user));
+      });
   };
 };

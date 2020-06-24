@@ -18,13 +18,12 @@ export default ({ id }) => {
   const [color, setColor] = useState("inherit");
   const [followed, setFollowed] = useState(false);
   useEffect(() => {
-    console.log("here");
-    isFollowed(user.uid, id).then((res) => {
-      console.log(res);
-      console.log("here");
-      setFollowed(res);
-    });
-  }, [user.uid, id]);
+    if (user) {
+      isFollowed(user.uid, id).then((res) => {
+        setFollowed(res);
+      });
+    }
+  }, [user, id]);
 
   useEffect(() => {
     followed ? setColor("secondary") : setColor("inherit");
@@ -40,6 +39,7 @@ export default ({ id }) => {
         <CardHeader
           avatar={<Avatar aria-label="recipe" src={url}></Avatar>}
           action={
+            user &&
             user.uid !== id && (
               <>
                 <IconButton onClick={handleFollowClick} aria-label="settings">

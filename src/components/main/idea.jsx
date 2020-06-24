@@ -17,10 +17,9 @@ export default ({ idea }) => {
   const [showMenu, toggleMenu] = useState(false);
   const user = useSelector((state) => state.user);
 
-  useEffect(() => user && user.uid === idea.userID && toggleMenu(true), [
-    user,
-    idea,
-  ]);
+  useEffect(() => {
+    user && user.uid === idea.userID && toggleMenu(true);
+  }, [user, idea]);
 
   const name = useName(idea.userID);
   const img = useImage(idea.userID);

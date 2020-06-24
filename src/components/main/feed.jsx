@@ -7,12 +7,11 @@ export default () => {
   const [ideas, setIdeas] = useState([]);
   const user = useSelector((state) => state.user);
   useEffect(() => {
-    console.log("getting ideas");
-    getFollowingIdeas(user.uid).then((ideasRef) => {
-      console.log("got ideas for real");
-      setIdeas(ideasRef);
-    });
-    console.log("got ideas");
+    if (user) {
+      getFollowingIdeas(user.uid).then((ideasRef) => {
+        setIdeas(ideasRef);
+      });
+    }
   }, [user]);
   return <Ideas ideas={ideas} activePage={""} />;
 };

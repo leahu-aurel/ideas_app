@@ -3,8 +3,6 @@ import { useHistory } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -12,28 +10,19 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Copyright from "./copyright";
 import { useStyles } from "./styles";
-import firebase from "../../base";
 import { useDispatch } from "react-redux";
-import { signIn } from "../../redux/actions/syncActionCreators";
+import { signInOnServer } from "../../redux/actions/asyncActionCreators";
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const dispatch = useDispatch();
-  const [remember, setRemember] = useState(false);
   const classes = useStyles();
   const history = useHistory();
 
   const submitHandle = (e) => {
     e.preventDefault();
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, pass)
-      .then(({ user }) => {
-        dispatch(signIn(user));
-        history.push("/");
-      });
-
-    console.log(remember);
+    dispatch(signInOnServer(email, pass));
+    history.push("/");
   };
 
   const handleEmailChange = (e) => {
@@ -42,10 +31,6 @@ export default function SignIn() {
 
   const handlePassChange = (e) => {
     setPass(e.target.value);
-  };
-
-  const handleCheckboxChange = (e) => {
-    setRemember(e.target.checked);
   };
 
   return (
@@ -84,11 +69,7 @@ export default function SignIn() {
             id="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
-            onChange={handleCheckboxChange}
-            control={<Checkbox color="primary" checked={remember} />}
-            label="Remember me"
-          />
+
           <Button
             type="submit"
             fullWidth
