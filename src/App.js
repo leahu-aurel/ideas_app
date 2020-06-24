@@ -18,7 +18,7 @@ export default () => {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        dispatch(updateUser(user));
+        user.emailVerified && dispatch(updateUser(user));
       }
     });
   });

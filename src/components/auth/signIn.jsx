@@ -9,20 +9,33 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Copyright from "./copyright";
+import MuiAlert from "@material-ui/lab/Alert";
+
 import { useStyles } from "./styles";
 import { useDispatch } from "react-redux";
-import { signInOnServer } from "../../redux/actions/asyncActionCreators";
+import { signIn } from "../../redux/actions/syncActionCreators";
+import { getResponse } from "../../utils/getResponse";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
-
+  const [error, setError] = useState("");
+  console.log(error);
   const submitHandle = (e) => {
     e.preventDefault();
-    dispatch(signInOnServer(email, pass));
-    history.push("/");
+    getResponse(email, pass).then(({ user, error }) =>
+      user
+        ? (console.log(user), dispatch(signIn(user)), history.push("/"))
+        : setError(error.message)
+    );
+    // ;
   };
 
   const handleEmailChange = (e) => {
@@ -69,7 +82,11 @@ export default function SignIn() {
             id="password"
             autoComplete="current-password"
           />
-
+          {error && (
+            <Alert className={classes.error} severity="error">
+              {error}
+            </Alert>
+          )}
           <Button
             type="submit"
             fullWidth
@@ -79,6 +96,7 @@ export default function SignIn() {
           >
             Sign In
           </Button>
+
           <Grid container justify="center">
             <Grid item>
               <Link href="/sign_up" variant="body2">

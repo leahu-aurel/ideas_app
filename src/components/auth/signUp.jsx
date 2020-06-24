@@ -10,10 +10,15 @@ import Container from "@material-ui/core/Container";
 import Copyright from "./copyright";
 import { useStyles } from "./styles";
 import useSignUp from "../hooks/useSignUp";
+import MuiAlert from "@material-ui/lab/Alert";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 export default () => {
   const classes = useStyles();
-  const [credentials, handleChange, handleSubmit] = useSignUp();
+  const [credentials, handleChange, handleSubmit, error] = useSignUp();
   const { fname, lname, email, pass, pass2 } = credentials;
   return (
     <Container component="main" maxWidth="xs">
@@ -85,6 +90,11 @@ export default () => {
               />
             </Grid>
           </Grid>
+          {error && (
+            <Alert className={classes.error} severity="error">
+              {error}
+            </Alert>
+          )}
           <Button
             type="submit"
             fullWidth

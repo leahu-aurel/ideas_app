@@ -110,14 +110,3 @@ export const fetchIdeas = (id) => {
     });
   };
 };
-
-export const signInOnServer = (email, pass) => {
-  return (dispatch) => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, pass)
-      .then(({ user }) => {
-        dispatch(signIn(user));
-      });
-  };
-};

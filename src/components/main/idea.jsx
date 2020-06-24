@@ -26,7 +26,7 @@ export default ({ idea }) => {
   const url = useURL(idea.userID, img);
 
   return (
-    <Box mb={3} width="100%">
+    <Box mt={2} mb={2} width="100%">
       <Card>
         <CardHeader
           avatar={<Avatar className="menuAvatar" alt="" src={url} />}
