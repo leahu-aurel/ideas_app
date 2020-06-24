@@ -5,6 +5,7 @@ import Ideas from "./ideas";
 
 export default () => {
   const ideas = useSelector((state) => Object.values(state.ideas));
+
   const activePage = useIdeas();
   return <Ideas ideas={ideas} activePage={activePage} />;
 };

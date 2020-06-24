@@ -52,9 +52,25 @@ export default ({ ideas, activePage }) => {
             ))}
           </>
         ) : (
-          <Typography variant="h5">
-            You don't follow anyone. To have feed, you have to follow someone.
-          </Typography>
+          user &&
+          (activePage ? (
+            activePage === user.uid ? (
+              <Typography variant="h5">Write your first idea.</Typography>
+            ) : (
+              <>
+                <Typography variant="h5">
+                  No ideas from this user yet.
+                </Typography>
+              </>
+            )
+          ) : (
+            <>
+              <Typography variant="h5">
+                You don't follow anyone. To have feed, you have to follow
+                someone.
+              </Typography>
+            </>
+          ))
         )}
       </div>
     </Container>

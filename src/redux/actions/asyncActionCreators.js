@@ -107,7 +107,11 @@ export const removeIdeaOnServer = (idea) => {
 
 export const fetchIdeas = (id) => {
   return (dispatch) => {
-    const userRef = db.collection("users").doc(id).collection("ideas");
+    const userRef = db
+      .collection("users")
+      .doc(id)
+      .collection("ideas")
+      .orderBy("time", "desc");
     userRef.get().then((snapShot) => {
       const ideas = {};
       snapShot.docs.forEach((doc) => {

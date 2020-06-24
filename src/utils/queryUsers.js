@@ -1,7 +1,7 @@
 import { db } from "../base";
 
 export const queryUsers = async (substr) => {
-  const userRef = db.collection("users");
+  const userRef = db.collection("users").limit(5);
   const snapShot = await userRef.get();
   const queries = snapShot.docs.map((doc) => doc.data());
   const filteredQueries = queries.filter(

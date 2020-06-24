@@ -11,7 +11,7 @@ export default () => {
     const task = storageRef.put(file);
     task.on("state_changed", function complete(snapShot) {
       if (snapShot.bytesTransferred === snapShot.totalBytes) {
-        console.log("uploaded");
+        alert("Uploaded " + name);
         dispatch(addImageOnServer(name));
       }
     });

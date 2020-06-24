@@ -10,7 +10,6 @@ export default () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let user = null;
     if (!(fName && lName)) {
       setError("The name fields aren't filled");
     } else {
@@ -19,14 +18,15 @@ export default () => {
         firebase
           .auth()
           .createUserWithEmailAndPassword(email, pass)
-          .then(() => {
-            user = firebase.auth().currentUser;
-            user.sendEmailVerification();
-          })
-          .then(() => {
+          .then(({ user }) => {
             const obj = { id: user.uid, displayName, image: "" };
-            db.collection("users").doc(user.uid).set(obj);
-            history.push("/verify_email");
+            db.collection("users")
+              .doc(user.uid)
+              .set(obj)
+              .then(() => {
+                user.sendEmailVerification();
+                history.push("/verify_email");
+              });
           })
           .catch((error) => setError(error.message));
       } else {
