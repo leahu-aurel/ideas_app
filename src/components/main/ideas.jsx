@@ -45,9 +45,17 @@ export default ({ ideas, activePage }) => {
             </div>
           </Container>
         )}
-        {ideas.map((idea) => (
-          <Idea key={idea.id} idea={idea} />
-        ))}
+        {ideas.length ? (
+          <>
+            {ideas.map((idea) => (
+              <Idea key={idea.id} idea={idea} />
+            ))}
+          </>
+        ) : (
+          <Typography variant="h5">
+            You don't follow anyone. To have feed, you have to follow someone.
+          </Typography>
+        )}
       </div>
     </Container>
   );

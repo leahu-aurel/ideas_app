@@ -57,8 +57,6 @@ export const setIdeas = (ideas) => {
 };
 
 export const addImage = (id, image) => {
-  console.log(id);
-  console.log(image);
   return {
     type: ADD_IMAGE,
     id,

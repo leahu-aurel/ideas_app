@@ -14,7 +14,6 @@ import { useName } from "../hooks/useName";
 
 export default function FormDialog({ children }) {
   const user = useSelector((state) => state.user);
-  console.log(user.uid);
   const displayName = useName(user.uid);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -34,8 +33,6 @@ export default function FormDialog({ children }) {
   useEffect(() => {
     setName(displayName);
   }, [displayName]);
-
-  console.log(name);
 
   const handleChange = (e) => {
     setName(e.target.value);

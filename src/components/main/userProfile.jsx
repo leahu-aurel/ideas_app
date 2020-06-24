@@ -12,9 +12,7 @@ import { handleFollow } from "../../utils/handleFollow";
 import { useName } from "../hooks/useName";
 export default ({ id }) => {
   const name = useName(id);
-  console.log(id);
   const url = useURL(id);
-  console.log(url);
   const user = useSelector((state) => state.user);
   useEffect(() => {
     if (user) {

@@ -8,9 +8,6 @@ export const useURL = (id) => {
   const image = useSelector((state) => state.images[id]);
   const url = useSelector((state) => state.urls[id]);
   const dispatch = useDispatch();
-  console.log(id);
-  console.log(image);
-  console.log(url);
   useEffect(() => {
     if (image) {
       getPhotoURL(id, image).then((urlRef) => {
@@ -19,7 +16,9 @@ export const useURL = (id) => {
         }
       });
     } else {
-      getImage(id).then((img) => dispatch(addImage(img)));
+      getImage(id).then((img) => {
+        dispatch(addImage(id, img));
+      });
     }
   }, [id, url, image, dispatch]);
 

@@ -8,6 +8,5 @@ export const isFollowed = async (user_id, id) => {
     .doc(id)
     .get()
     .then((snapShot) => snapShot.exists);
-  console.log(isFollowed);
   return isFollowed;
 };
