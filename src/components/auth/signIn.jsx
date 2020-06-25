@@ -15,7 +15,6 @@ import { useStyles } from "./styles";
 import { useDispatch } from "react-redux";
 import { signIn } from "../../redux/actions/syncActionCreators";
 import { getResponse } from "../../utils/getResponse";
-
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -27,7 +26,6 @@ export default function SignIn() {
   const classes = useStyles();
   const history = useHistory();
   const [error, setError] = useState("");
-  console.log(error);
   const submitHandle = (e) => {
     e.preventDefault();
     getResponse(email, pass).then(({ user, error }) =>
