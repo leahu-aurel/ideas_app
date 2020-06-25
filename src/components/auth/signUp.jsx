@@ -18,7 +18,13 @@ function Alert(props) {
 
 export default () => {
   const classes = useStyles();
-  const [credentials, handleChange, handleSubmit, error] = useSignUp();
+  const [
+    credentials,
+    handleChange,
+    handleSubmit,
+    isDisabled,
+    error,
+  ] = useSignUp();
   const { fname, lname, email, pass, pass2 } = credentials;
   return (
     <Container component="main" maxWidth="xs">
@@ -96,6 +102,7 @@ export default () => {
             </Alert>
           )}
           <Button
+            disabled={isDisabled}
             type="submit"
             fullWidth
             variant="contained"

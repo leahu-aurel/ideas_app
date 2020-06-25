@@ -10,8 +10,8 @@ export default () => {
     const file = e.target.files[0];
     const { name, type, size } = file;
     if (type.includes("image/")) {
-      if (size >= 2e6) {
-        alert("Too big size: Maximum size is 2mb");
+      if (size >= 1e6) {
+        alert("Too big size: Maximum size is 1mb");
       } else {
         const storageRef = storage.ref(`photos/${user.uid}/${name}`);
         const task = storageRef.put(file);

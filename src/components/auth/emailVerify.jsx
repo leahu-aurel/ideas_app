@@ -22,7 +22,7 @@ export default () => {
           <Link color="inherit" href="/sign_in">
             log in
           </Link>
-          .
+          . It could take up to some minutes for you to get the email message.
         </Typography>
       </div>
       <Copyright />

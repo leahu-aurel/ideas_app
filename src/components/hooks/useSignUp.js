@@ -7,7 +7,7 @@ export default () => {
   const { fName, lName, email, pass, pass2 } = credentials;
   const history = useHistory();
   const [error, setError] = useState("");
-
+  const [isDisabled, setDisabled] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!(fName && lName)) {
@@ -15,20 +15,21 @@ export default () => {
     } else {
       if (pass && pass2 && pass === pass2) {
         const displayName = `${fName} ${lName}`;
+        setDisabled(true);
         firebase
           .auth()
           .createUserWithEmailAndPassword(email, pass)
           .then(({ user }) => {
             const obj = { id: user.uid, displayName, image: "" };
-            db.collection("users")
-              .doc(user.uid)
-              .set(obj)
-              .then(() => {
-                user.sendEmailVerification();
-                history.push("/verify_email");
-              });
+            db.collection("users").doc(user.uid).set(obj);
+            user.sendEmailVerification();
+            history.push("/verify_email");
           })
-          .catch((error) => setError(error.message));
+          .catch((error) => {
+            setDisabled(false);
+
+            setError(error.message);
+          });
       } else {
         setError("The password fields are not the same/are not filled");
       }
@@ -38,5 +39,5 @@ export default () => {
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
-  return [credentials, handleChange, handleSubmit, error];
+  return [credentials, handleChange, handleSubmit, isDisabled, error];
 };

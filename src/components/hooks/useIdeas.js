@@ -10,11 +10,15 @@ export default () => {
   const [activePage, setActivePage] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
-    id && isARealUser(id).then((isUser) => isUser && setActivePage(id));
+    id &&
+      isARealUser(id).then((isUser) => {
+        isUser ? setActivePage(id) : setActivePage("");
+      });
   }, [id]);
-
   useEffect(() => {
-    activePage && dispatch(fetchIdeas(activePage));
+    if (activePage) {
+      activePage && dispatch(fetchIdeas(activePage));
+    }
   }, [dispatch, activePage]);
 
   return activePage;

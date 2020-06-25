@@ -13,6 +13,7 @@ import { useName } from "../hooks/useName";
 import { useImage } from "../hooks/useImage";
 import { useURL } from "../hooks/useURL";
 import { useSelector } from "react-redux";
+import { useHistory, Link } from "react-router-dom";
 export default ({ idea }) => {
   const [showMenu, toggleMenu] = useState(false);
   const user = useSelector((state) => state.user);
@@ -24,12 +25,22 @@ export default ({ idea }) => {
   const name = useName(idea.userID);
   const img = useImage(idea.userID);
   const url = useURL(idea.userID, img);
-
+  const history = useHistory();
+  const handleClick = () => {
+    history.push(`/${idea.userID}`);
+  };
   return (
     <Box mt={2} mb={2} width="100%">
       <Card>
         <CardHeader
-          avatar={<Avatar className="menuAvatar" alt="" src={url} />}
+          avatar={
+            <Avatar
+              onClick={handleClick}
+              className="menuAvatar"
+              alt=""
+              src={url}
+            />
+          }
           action={
             showMenu && (
               <>
@@ -42,7 +53,14 @@ export default ({ idea }) => {
               </>
             )
           }
-          title={name}
+          title={
+            <Link
+              style={{ color: "black", textDecoration: "none" }}
+              to={`/${idea.userID}`}
+            >
+              {name}
+            </Link>
+          }
           subheader={moment(idea.time).fromNow()}
         />
         <CardContent>
