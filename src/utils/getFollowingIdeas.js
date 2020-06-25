@@ -4,7 +4,12 @@ const getIdeas = async (ids) => {
   const ideas = await ids.reduce(async (prevArr, id) => {
     const nextArr = await prevArr;
 
-    const idRef = db.collection("users").doc(id).collection("ideas").limit(3);
+    const idRef = db
+      .collection("users")
+      .doc(id)
+      .collection("ideas")
+      .orderBy("time", "desc")
+      .limit(3);
     const ideas = await idRef
       .get()
       .then((querySnapshot) => querySnapshot.docs.map((doc) => doc.data()));
