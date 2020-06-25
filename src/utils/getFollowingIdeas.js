@@ -25,6 +25,6 @@ export default async (id) => {
     .get()
     .then((querySnapshot) => querySnapshot.docs.map((doc) => doc.id));
   const ideas = await getIdeas(ids);
-  const sortedIdeas = ideas.sort((a, b) => a.time - b.time);
+  const sortedIdeas = ideas.sort((a, b) => b.time - a.time);
   return sortedIdeas;
 };
